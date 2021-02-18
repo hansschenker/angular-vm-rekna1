@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { HttpClientModule } from "@angular/common/http";
+// persons
 import { PersonsRoutingModule } from './persons-routing.module';
 import { PersonsComponent } from './persons.component';
 import { PersonListComponent } from './components/person-list/person-list.component';
@@ -13,6 +14,7 @@ import { PersonFormComponent } from './components/person-form/person-form.compon
   declarations: [PersonsComponent, PersonListComponent, PersonListItemComponent, PersonDetailsComponent, PersonFormComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     PersonsRoutingModule
   ],
   exports: [PersonListComponent, PersonListItemComponent, PersonDetailsComponent, PersonFormComponent]
