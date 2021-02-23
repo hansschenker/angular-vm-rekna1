@@ -1,7 +1,8 @@
-export interface IPerson {
+import { Item } from './../../shared/viewmodel';
+export interface IPerson extends Item {
   id: number;
   name: string;
-  age: number;
+  age?: number;
   height?: number;
   weight?: number;
   bmi?: number;

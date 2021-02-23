@@ -49,6 +49,7 @@ constructor(private svc:PersonService, private http: HttpClient) {
 } // constructor
 
 // -------------- persons --------------------------------
+// source: 
 // load items from server
 private getItemsChange$ = this.svc.getPersons$.pipe(
   map( persons => ( vm: PersonVm) => ({ ...vm, persons }) )

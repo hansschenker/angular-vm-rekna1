@@ -1,3 +1,4 @@
+import { Item } from './../shared/viewmodel';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
@@ -20,6 +21,7 @@ export class PersonService {
       shareReplay(1),
       catchError(this.handleError)
     );
+    // handle errors method
     private handleError(err: any) {
       // in a real world app, we may send the server to some remote logging infrastructure
       // instead of just logging it to the console
@@ -35,6 +37,16 @@ export class PersonService {
       console.error(err);
       return throwError(errorMessage);
     }
+    // generic version getItems
+      // List of persons ---------------------------------------------------------------------------
+  getItems$: Observable<IPerson[]> = this.http.get<IPerson[]>(this.personsUrl, {headers: this.httpHeaders})
+  .pipe(
+    tap(response => console.log(JSON.stringify(response))),
+    shareReplay(1),
+    catchError(this.handleError)
+  );
+
+
     getAllPersons(): Observable<IPerson[]> {
       return this.http.get<IPerson[]>(this.personsUrl, {headers: this.httpHeaders})
       .pipe(
