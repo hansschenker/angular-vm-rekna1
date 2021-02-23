@@ -27,6 +27,7 @@ export class PersonsComponent {
   public vm$ : Observable<PersonVm>;
   // create user action state streams: crudl (create, read, update, delete, list)
   public addState = new Subject<Partial<IPerson>>();
+  public updateState = new Subject<Partial<IPerson>>();
   public deleteState = new Subject<IPerson>();
   public detailState = new Subject<IPerson>();
   public detailStateClose = new Subject();
@@ -58,6 +59,15 @@ private addChange$ = this.addState.pipe(
   // tap(p => console.log("add person:", p)),
   map(person => (vm:PersonVm) => ({...vm, persons: [...vm.persons , person ] })),
 )
+private updateChange$ = this.updateState.pipe(
+  map( updatePerson => (vm: PersonVm)=>{
+    const personIndex = vm.persons.findIndex(p=>p===updatePerson);
+    // spread operator to maintain immutability of the persons array
+    const persons = [
+      ...vm.persons.slice(0,personIndex), updatePerson, ...vm.persons.slice(personIndex+ 1)];
+    return {...vm, persons};
+  })
+);
 // delete item localy
 private deleteChange$ = this.deleteState.pipe(
   map( item => (vm:PersonVm) => ({...vm, persons: vm.persons.filter(p => p.id !==item.id) }))

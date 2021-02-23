@@ -11,12 +11,34 @@
   <div *ngFor="let person of vm.persons">
     <button (click)="deleteState.next(person)" >X</button>  
     <button (click)="detailState.next(person)" >detail</button>
-    {{person.name}}
+    {{person.name}} - age: {{ person.age  }} - height: {{ person.height }} - weight: {{ person.weight }} - bmi: {{ person.bmi }}
   </div> 
   
   <div style="margin-top:1em" *ngIf="vm.selectedPerson">
-    {{vm.selectedPerson.id}} - {{vm.selectedPerson.name}}
-    <button (click)="detailStateClose.next()">close</button>
+    {{vm.selectedPerson.id}} - {{vm.selectedPerson.name}}- {{vm.selectedPerson.age}}
+    <div>
+      <label for="name">Name</label>
+      <input name="name" [(ngModel)]="vm.selectedPerson.name" #person type="text" value ="vm.selectedPerson.name" (change)="updateState.next( person)" >
+    </div>
+  <div>
+    <label for="age">Age</label>
+      <input name="age" [(ngModel)]="vm.selectedPerson.age" #person type="number" value ="vm.selectedPerson.age" (change)="updateState.next( person)" >
+    </div>
+  <div>
+    <label for="height">Height</label>
+      <input name="height" [(ngModel)]="vm.selectedPerson.height" #person type="number" value ="vm.selectedPerson.height" (change)="updateState.next( person)" >
+    </div>
+  <div>
+    <label for="weight">Weight</label>
+      <input name="weight" [(ngModel)]="vm.selectedPerson.weight" #person type="number" value ="vm.selectedPerson.weight" (change)="updateState.next( person)" >
+    </div>
+  <div>
+    <label for="bmi">Body Mass Index</label>
+      <input name="bmi" [(ngModel)]="vm.selectedPerson.bmi" #person type="number" value ="vm.selectedPerson.bmi" (change)="updateState.next( person)" >
+    </div>
+<div>
+      <button (click)="detailStateClose.next()">close</button>
+</div>
   </div>
   
   

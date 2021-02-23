@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 // persons
 import { PersonsRoutingModule } from './persons-routing.module';
@@ -14,6 +15,7 @@ import { PersonFormComponent } from './components/person-form/person-form.compon
   declarations: [PersonsComponent, PersonListComponent, PersonListItemComponent, PersonDetailsComponent, PersonFormComponent],
   imports: [
     CommonModule,
+    FormsModule,
     HttpClientModule,
     PersonsRoutingModule
   ],
