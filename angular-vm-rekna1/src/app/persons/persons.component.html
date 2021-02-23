@@ -1,27 +1,26 @@
 <p>persons works!</p>
-<div *ngIf="vm$ | async | json as vm">
-    
-    <pre>vm {{  vm }}</pre>
-</div>
 <router-outlet></router-outlet>
 <ng-container *ngIf="vm$ | async as vm">
-
-    <h1>Users</h1>
   
-    <div>Add a User</div>
-    <input #user type="text" (change)="addUserState.next(user.value)" >
-    <hr>
+  <h1>Persons</h1>
   
-    <div *ngFor="let user of vm.users">
-      <button (click)="deleteUserSubj.next(user)" >X</button>  
-      <button (click)="detailUserSubj.next(user)" >detail</button>
-      {{user.name}}
-    </div> 
-    
-    <div style="margin-top:1em" *ngIf="vm.selectedUser">
-      {{vm.selectedUser.id}} - {{vm.selectedUser.name}}
-      <button (click)="closeDetailSubj.next()">close</button>
-    </div>
+  <div>Add a Person</div>
+  <input #person type="text" (change)="addState.next({name: person.value});" >
+  <hr>
+  
+  <div *ngFor="let person of vm.persons">
+    <button (click)="deleteState.next(person)" >X</button>  
+    <button (click)="detailState.next(person)" >detail</button>
+    {{person.name}}
+  </div> 
+  
+  <div style="margin-top:1em" *ngIf="vm.selectedPerson">
+    {{vm.selectedPerson.id}} - {{vm.selectedPerson.name}}
+    <button (click)="detailStateClose.next()">close</button>
+  </div>
+  
+  
+      <!-- <pre>vm {{  vm | json }}</pre> -->
   
     
   </ng-container>
