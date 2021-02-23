@@ -8,26 +8,11 @@ import { map, scan, mergeMap, startWith, tap } from 'rxjs/operators';
 import { ViewModel, VmFn } from './../shared/viewmodel';
 import {IPerson  } from "./types/types";
 
-// interface IUser {
-//   id?:number;
-//   name:string;
-// }
-// interface IViewModel {
-//   users: IUser[];
-//   selectedUser?: IUser;
-// }
-
-
-// interface PersonVm extends ViewModel<IPerson> {
-//   items: IPerson[];
-//   selectedItem?: IPerson;
-// }
 interface PersonVm extends ViewModel<IPerson> {
   persons: IPerson[];
   selectedPerson?: IPerson;
 }
 
- //type PersonVmFn = VmFn<IPerson>;
  type PersonVmFn = (vm: PersonVm) => PersonVm;
 
 @Component({
@@ -38,12 +23,9 @@ interface PersonVm extends ViewModel<IPerson> {
 export class PersonsComponent {
 
 
-//public personDetailState = new Subject<IPerson>();
-// public vm$ : Observable<IPersonVm>;
-  // define observable vm
-  // ------------ users -----------------------------------------
+  // vm$ : public viewmodel merge all changes$ into viewmodel
   public vm$ : Observable<PersonVm>;
-  // create action streams
+  // create user action state streams: crudl (create, read, update, delete, list)
   public addState = new Subject<Partial<IPerson>>();
   public deleteState = new Subject<IPerson>();
   public detailState = new Subject<IPerson>();
@@ -52,18 +34,13 @@ export class PersonsComponent {
 
 constructor(private svc:PersonService, private http: HttpClient) {
 
-
-  // ------------------- users ---------------------------
-
-
-    // merge action streams into one
-    // and track state with the help of scan operator
+    // merge user action streams into vm$ change stream
     this.vm$ = merge(
-      this.getItemsState,
-      this.addChange$,
-      this.deleteChange$,
-      this.detailChange$,
-      this.detailCloseChange$
+      this.getItemsChange$,   // load items -> list items
+      this.addChange$,        // add/update item
+      this.deleteChange$,     // delete item
+      this.detailChange$,     // show item details
+      this.detailCloseChange$ // close item details
     ).pipe(
       scan( (oldVm:PersonVm, mutateFn:PersonVmFn) => mutateFn(oldVm), {persons:[]} as PersonVm )
     );
@@ -71,27 +48,29 @@ constructor(private svc:PersonService, private http: HttpClient) {
 } // constructor
 
 // -------------- persons --------------------------------
-private getItemsState = this.svc.getPersons$.pipe(
+// load items from server
+private getItemsChange$ = this.svc.getPersons$.pipe(
   map( persons => ( vm: PersonVm) => ({ ...vm, persons }) )
 )
-
+// add/update item localy
+// todo: add item on the server, load item from server, refresh item list
 private addChange$ = this.addState.pipe(
   // tap(p => console.log("add person:", p)),
-  map( 
-    person => (vm:PersonVm) => ({...vm, persons: [...vm.persons , person ] })
-    ),
+  map(person => (vm:PersonVm) => ({...vm, persons: [...vm.persons , person ] })),
 )
+// delete item localy
 private deleteChange$ = this.deleteState.pipe(
   map( item => (vm:PersonVm) => ({...vm, persons: vm.persons.filter(p => p.id !==item.id) }))
 )
-
+// show item details
 private detailChange$ = this.detailState.pipe(
   map( selectedPerson => (vm:PersonVm) => ({...vm, selectedPerson }))
 )
+// close item details
 private detailCloseChange$ = this.detailStateClose.pipe(
   map( _ => (vm:PersonVm) => ({...vm, selectedPerson:null }))
 )
-// ----------------- users -------------------------------
+// ----------------- persons -------------------------------
 
 } // class
 
