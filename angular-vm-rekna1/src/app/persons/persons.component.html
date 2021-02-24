@@ -1,20 +1,18 @@
 <p>persons works!</p>
 <router-outlet></router-outlet>
+<person-list #list>Person List here</person-list>
+
 <ng-container *ngIf="vm$ | async as vm">
   
   <h1>Persons</h1>
-  <!-- add item -->
-  <div>Add a Person</div>
-  <input #person type="text" (change)="addState.next({name: person.value});" >
-  <hr>
-  
-  <!-- list items -->
-  <div *ngFor="let person of vm.persons">
-    <button (click)="deleteState.next(person)" >X</button>  
-    <button (click)="detailState.next(person)" >detail</button>
-    {{person.name}} - age: {{ person.age  }} - height: {{ person.height }} - weight: {{ person.weight }} - bmi: {{ person.bmi }}
-  </div> 
-
+  <person-form (personAdded)="addState.next($event)"></person-form>
+  <hr />
+  <h3>Person List</h3>
+  <person-list [persons$] = "vm.persons"
+                (deletedPerson)="deletePerson($event)"
+                (detailedPerson)="detailPerson($event)"
+  ></person-list>
+  <hr />
   <!-- show/update item details -->
   <div style="margin-top:1em" *ngIf="vm.selectedPerson">
     {{vm.selectedPerson.id}} - {{vm.selectedPerson.name}}- {{vm.selectedPerson.age}}
@@ -38,15 +36,16 @@
     <label for="bmi">Body Mass Index</label>
       <input name="bmi" [(ngModel)]="vm.selectedPerson.bmi" #person type="number" value ="vm.selectedPerson.bmi" (change)="updateState.next( person)" >
     </div>
-<div>
 
   <!-- close item details -->
       <button (click)="detailStateClose.next()">close</button>
 </div>
-  </div>
+ 
   
   
       <!-- <pre>vm {{  vm | json }}</pre> -->
   
     
-  </ng-container>
+
+
+</ng-container>

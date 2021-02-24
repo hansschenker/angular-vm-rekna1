@@ -6,6 +6,7 @@ export interface Item {
 }
 export interface ViewModel<T> {
     items: T[];
+    addedItem?: T;
     selectedItem?: T;
   }
 
@@ -13,7 +14,7 @@ export type VmFn<T> = (vm: ViewModel<T>) => ViewModel<T>;
 
 export interface DataService<Item> {
     httpHeaders: HttpHeaders;
-    itemsUrl: string;
+    apiUrl: string;
     items$: Observable<Item[]>;
     item$(id: number): Observable<Item>;
     add$(item: Item): Observable<Item>;

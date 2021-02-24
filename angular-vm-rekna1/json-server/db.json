@@ -1,13 +1,20 @@
 {
-  "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
-  "persons": [
-    { "id": 1, "name": "Person 1", "age": 44, "height": 180, "weight": 80, "bmi":0 },
-    { "id": 2, "name": "Person 2", "age": 45, "height": 181, "weight": 81, "bmi":0 },
-    { "id": 3, "name": "Person 3", "age": 46, "height": 182, "weight": 82, "bmi":0 },
-    { "id": 4, "name": "Person 4", "age": 47, "height": 183, "weight": 83, "bmi":0 },
-    { "id": 5, "name": "Person 5", "age": 48, "height": 184, "weight": 84, "bmi":0 },
-    { "id": 6, "name": "Person 6", "age": 49, "height": 185, "weight": 85, "bmi":0 }
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
   ],
-  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
-  "profile": { "name": "typicode" }
+  "persons": [],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }

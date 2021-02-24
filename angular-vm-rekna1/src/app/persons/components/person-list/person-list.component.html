@@ -1,1 +1,7 @@
-<p>person-list works!</p>
+  <!-- list items -->
+  <div *ngFor="let person of persons$">
+    <button (click)="deletePerson(person)" >X</button>  
+    <button (click)="detailPerson(person)" >detail</button>
+    {{person.name}} - age: {{ person.age  }} - height: {{ person.height }} - weight: {{ person.weight }} - bmi: {{ person.bmi }}
+  
+  </div> 

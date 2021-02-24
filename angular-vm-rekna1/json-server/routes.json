@@ -1,7 +1,7 @@
 {
   "/api/*": "/$1",
-  "/persons/:id": "/:resource/:id",
-  "/:resource/:id/show": "/:resource/:id",
+  "/persons/:id": "/persons/:id",
+  "/persons/:id/delete": "/persons/:id",
   "/posts/:category": "/posts?category=:category",
   "/articles\\?id=:id": "/posts/:id"
 }

@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "json-server": "json-server .\\json-server\\db.json --routes .\\json-server\\routes.json",
+    "json-server": "json-server -w .\\json-server\\db.json --routes .\\json-server\\routes.json",
     "serve:json-server": "npm run json-server & ng serve angular-vm-rekna1 --proxyConfig proxy.conf.json"
   },
   "private": true,

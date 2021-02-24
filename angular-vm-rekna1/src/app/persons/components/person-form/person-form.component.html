@@ -1,1 +1,31 @@
-<p>person-form works!</p>
+
+ <!-- add item -->
+ <div>Add a Person</div>
+ <hr>
+  
+  <div style="margin-top:1em" >
+   <div>
+     <label for="name">Name</label>
+     <input name="name" [(ngModel)]="addedPerson.name" #name type="text"  >
+   </div>
+ <div>
+   <label for="age">Age</label>
+     <input name="age" [(ngModel)]="addedPerson.age" #age type="number" >
+   </div>
+ <div>
+   <label for="height">Height</label>
+     <input name="height" [(ngModel)]="addedPerson.height" #height type="number"  >
+   </div>
+ <div>
+   <label for="weight">Weight</label>
+     <input name="weight" [(ngModel)]="addedPerson.weight" #weight type="number"  >
+   </div>
+ <div>
+   <label for="bmi">Body Mass Index</label>
+     <input name="bmi" [(ngModel)]="addedPerson.bmi" #bmi type="number"  >
+   </div>
+
+   <button (click)="addPerson({ id: 0, name: name.value, age: age.value, height: height.value, weight: weight.value, bmi: bmi.value})">Add Person</button>
+<div>
+</div>
+</div>
